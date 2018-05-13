@@ -20,8 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-
-import Vehicles.SeaVehicle;
 import Vehicles.Vehicle;
 import overideClasses.simpleFrame;
 import overideClasses.Panel;
