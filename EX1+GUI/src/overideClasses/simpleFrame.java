@@ -17,7 +17,6 @@ public class simpleFrame extends JFrame {
 		setIconImage(new ImageIcon(this.getClass().getResource("/images/icon.png")).getImage());
 		pack();
 		setSize(weight, height);
-		setVisible(true);
 	}
 	public void addComponent(Component contents){
 		revalidate();
