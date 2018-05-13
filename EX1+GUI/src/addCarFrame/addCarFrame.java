@@ -133,7 +133,7 @@ public class addCarFrame extends simpleFrame{
         options[1].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				labels[0].setRed();//name
+//				labels[0].setRed();//name
 				labels[1].setText("0");//km
 				labels[2].setRed();//maxpassengers
 				labels[3].setRed();//maxspeed
