@@ -61,6 +61,14 @@ public class Contents {
 		});
 		Button resetCars = new Button("/images/resetCars.png","/images/resetCars2.png");
 		resetCars.setBounds(new Rectangle(new Point(100,300),resetCars.getPreferredSize()));
+		resetCars.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(int i=0;i<vehicles.size();i++){
+					(vehicles.get(i)).setZero();
+				}
+			}
+		});
 		Button changeFlag = new Button("/images/changeFlag.png","/images/changeFlag2.png");
 		changeFlag.setBounds(new Rectangle(new Point(100,450),changeFlag.getPreferredSize()));
 		JLabel background2 = new JLabel();
