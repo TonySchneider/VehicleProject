@@ -33,6 +33,7 @@ import overideClasses.Panel;
 import overideClasses.ComboBox;
 import overideClasses.Field;
 import overideClasses.simpleFrame;
+import Vehicles.Amphibious;
 import Vehicles.Bicycle;
 import Vehicles.Cruise;
 import Vehicles.DownGame;
@@ -196,18 +197,19 @@ public class addCarFrame extends simpleFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				labels[0].setText("");//name
+				//(labels[0].getFieldText(),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),Boolean.parseBoolean(comos[3].getComboText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()))
+				labels[0].setRed();//name
 				labels[1].setText("");//km
-				labels[2].setText("");//maxpassengers
-				labels[3].setText("");//maxspeed
-				labels[4].setText("");//flag
-				labels[5].setText("");//fualaverage
-				labels[6].setText("");//engineaverage
-				labels[7].setText("");//מקור הכוח
-				comos[0].setLock(0);//wheels
-				comos[1].setLock(0);//type of road
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setRed();//flag
+				labels[5].setRed();//fualaverage
+				labels[6].setRed();//engineaverage
+				labels[7].setText("Irelevent");//מקור הכוח
+				comos[0].setRed();//wheels
+				comos[1].setLock(1);//type of road
 				comos[2].setLock(0);//שימוש בכלי
-				comos[3].setLock(0);//כיוון השייט
+				comos[3].setRed();//כיוון השייט
 				comos[4].setLock(0);//ניקוד �?נרגטי
 				comos[5].setLock(0);//סוג הרישיון
 			}
@@ -302,13 +304,17 @@ public class addCarFrame extends simpleFrame{
 					Contents.addImage();
 					break;
 				case "Amphibious":
-//					Amphibious newAmphibious = new Amphibious(labels[0].getFieldText());
-//					if(openFilePanel.opened())
-//						newAmphibious.setImagePath(openFilePanel.getFilePath());
-//					else
-//						newAmphibious.setImage(imagePanel.getSelected());
-//					Contents.addVehicle(newAmphibious);
-//					Contents.addImage();
+					Amphibious newAmphibious;
+					if(comos[3].getComboText().equals("With"))
+						newAmphibious = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+					else
+						newAmphibious = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+					if(openFilePanel.opened())
+						newAmphibious.setImagePath(openFilePanel.getFilePath());
+					else
+						newAmphibious.setImage(imagePanel.getSelected());
+					Contents.addVehicle(newAmphibious);
+					Contents.addImage();
 					break;
 				case "Bicycle":
 					Bicycle newBicycle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());

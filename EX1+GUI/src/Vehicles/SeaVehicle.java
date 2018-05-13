@@ -3,7 +3,7 @@
 package Vehicles;
 
 
-public abstract class SeaVehicle extends Vehicle {
+public class SeaVehicle extends Vehicle {
 	protected boolean direction_wind;
 	protected String country_flag;
 	public SeaVehicle(String Model,int MaxPassengers,int MaxSpeed,boolean direction_wind,String country_flag){
