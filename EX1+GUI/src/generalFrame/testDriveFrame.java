@@ -1,3 +1,5 @@
+//Sami shamoon ashdod
+//Tony Schneider 205515828, Dani suhrayev 205583008
 package generalFrame;
 
 import java.awt.Dimension;
