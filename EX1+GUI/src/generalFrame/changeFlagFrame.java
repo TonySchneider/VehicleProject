@@ -31,8 +31,8 @@ public class changeFlagFrame extends simpleFrame {
 	private List<JToggleButton> flags;
 	private static ButtonGroup group = new ButtonGroup();
 	private static JTextField selectedField;
-	public changeFlagFrame(int x,int y,int weight,int height,String title){
-		super(x,y,weight,height,title);
+	public changeFlagFrame(int weight,int height,String title){
+		super(weight,height,title);
 		Panel pane = new Panel();
 		JLabel header = new JLabel();
 		header.setText("Choose flag to change: ");

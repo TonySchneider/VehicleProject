@@ -4,7 +4,9 @@ package overideClasses;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -12,17 +14,18 @@ import javax.swing.JFrame;
 public class Frame extends JFrame {
 		private BackGroundPanel background;
 		public Frame(){
-			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			setMaximumSize(new Dimension(dim.width,dim.height));
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			int width = (int)screenSize.getWidth();
+			int height = (int)screenSize.getHeight();
+			setLocationRelativeTo(null);  
 			setLayout(null);
 			setIconImage(new ImageIcon(this.getClass().getResource("/images/icon.png")).getImage());
 	    	background = new BackGroundPanel(new BorderLayout(),"/images/background.png");
 			setContentPane(background);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setUndecorated(true);
+			setPreferredSize(new Dimension(1000,700));
+			setLocation(new Point(width/2-getPreferredSize().width/2,height/2-(int)(getPreferredSize().height/1.9)));
 			pack();
-			setExtendedState(JFrame.MAXIMIZED_BOTH); 
-//			setSize(screenWidth, screenHeight);
 			setVisible(true);
 		}
 	public void addComponent(Component contents){

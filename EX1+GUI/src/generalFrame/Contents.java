@@ -9,10 +9,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+
 import overideClasses.Button;
 import overideClasses.Panel;
 import addCarFrame.addCarFrame;
@@ -35,21 +38,25 @@ public class Contents {
 	private static ButtonGroup group = new ButtonGroup();
 	private static JTextField selectedField;
 	public Component createComponents(){
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = (int)screenSize.getWidth();
+		int height = (int)screenSize.getHeight();
 		pane = new Panel();
 		JLabel copyright = new JLabel("copyright");
 		copyright.setText("Powered by TonySchneider(205515828) & DanielSuhrayev(205583008)");
 		copyright.setForeground(Color.white);
 		copyright.setBounds(new Rectangle(new Point(950,735), copyright.getPreferredSize()));
+//		setLocation(new Point(width/2-getPreferredSize().width/2,height/2-(int)(getPreferredSize().height/1.9)));
 		Button addCar = new Button("/images/addCarButton.png","/images/addCarButton2.png");
-		addCar.setBounds(new Rectangle(new Point(70,80),addCar.getPreferredSize()));
+		addCar.setBounds(new Rectangle(new Point(7,20),addCar.getPreferredSize()));
 		addCar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCarFrame addCarFrame = new addCarFrame(400,40,600,700,"add new car");
+				addCarFrame addCarFrame = new addCarFrame(600,700,"add new car");
 			}
 		});
 		Button resetCars = new Button("/images/resetCars.png","/images/resetCars2.png");
-		resetCars.setBounds(new Rectangle(new Point(115,300),resetCars.getPreferredSize()));
+		resetCars.setBounds(new Rectangle(new Point(15,150),resetCars.getPreferredSize()));
 		resetCars.addActionListener(new ActionListener() {
 			
 			@Override
@@ -64,34 +71,26 @@ public class Contents {
 			}
 		});
 		Button changeFlag = new Button("/images/changeFlag.png","/images/changeFlag2.png");
-		changeFlag.setBounds(new Rectangle(new Point(115,450),changeFlag.getPreferredSize()));
+		changeFlag.setBounds(new Rectangle(new Point(15,250),changeFlag.getPreferredSize()));
 		changeFlag.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changeFlagFrame cfFrame = new changeFlagFrame(300,200,700,500,"Change flags");
+				changeFlagFrame cfFrame = new changeFlagFrame(700,500,"Change flags");
 //				if(vehicles.size() > 0)
 					cfFrame.setVisible(true);
 //				else
 //					JOptionPane.showMessageDialog(null, "There are no cars in stock.");
 			}
 		});
-		JLabel background2 = new JLabel();
-		background2.setIcon(new ImageIcon(this.getClass().getResource("/images/background2.png")));
-		background2.setBounds(new Rectangle(new Point(480,30),background2.getPreferredSize()));
-		Button exit = new Button("/images/exit.png","/images/exit2.png");
-		exit.setBounds(new Rectangle(new Point(-20,-30),exit.getPreferredSize()));
-		exit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				generalFrame.unVisible();
-			}
-		});
+//		JLabel background2 = new JLabel();
+//		background2.setIcon(new ImageIcon(this.getClass().getResource("/images/background2.png")));
+//		background2.setBounds(new Rectangle(new Point(480,30),background2.getPreferredSize()));
 		viewCars = new Panel();
 		viewCars.setLayout(new GridLayout(4,4,0,0));
-		viewCars.setBounds(new Rectangle(new Point(480,30),new Dimension(830,605)));
+		viewCars.setBounds(new Rectangle(new Point(260,10),new Dimension(740,520)));
 		Button buyCar = new Button("/images/buy.png","/images/buy2.png");
-		buyCar.setBounds(new Rectangle(new Point(1100,645),buyCar.getPreferredSize()));
+		buyCar.setBounds(new Rectangle(new Point(260,575),buyCar.getPreferredSize()));
 		buyCar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -104,12 +103,12 @@ public class Contents {
 				selectedField.setText("");
 			}});
 		Button testDrive = new Button("/images/testDrive.png","/images/testDrive2.png");
-		testDrive.setBounds(new Rectangle(new Point(950,645),testDrive.getPreferredSize()));
+		testDrive.setBounds(new Rectangle(new Point(400,575),testDrive.getPreferredSize()));
 		testDrive.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				testDriveFrame tdFrame = new testDriveFrame(500,300,300,150,"Test Drive",selectedField.getText());
+				testDriveFrame tdFrame = new testDriveFrame(300,150,"Test Drive",selectedField.getText());
 				if(!selectedField.getText().equals("")){
 					tdFrame.setVisible(true);
 				}
@@ -120,7 +119,7 @@ public class Contents {
 		});
 		JLabel selected = new JLabel();
 		selected.setText("Selected vehicle : ");
-		selected.setBounds(new Rectangle(new Point(500,663),new Dimension(200,30)));
+		selected.setBounds(new Rectangle(new Point(250,545),new Dimension(200,30)));
 		selected.setFont(new Font("Arial", Font.BOLD, 20));
 		selectedField = new JTextField();
 		selectedField.setBounds(new Rectangle(new Point(680,660),new Dimension(200,40)));
@@ -131,9 +130,8 @@ public class Contents {
 		pane.add(testDrive);
 		pane.add(buyCar);
 		pane.add(viewCars);
-		pane.add(exit);
 		pane.add(copyright);
-		pane.add(background2);
+//		pane.add(background2);
 		pane.add(resetCars);
 		pane.add(changeFlag);
 		pane.add(addCar);
@@ -151,7 +149,7 @@ public class Contents {
 			image = new ImageIcon(Contents.class.getResource("/images/vehicles/"+vehicles.get(count).getImage()));
 		else
 			image = new ImageIcon(vehicles.get(count).getImagePath());
-		Image scaledImage = image.getImage().getScaledInstance(150, 130, Image.SCALE_DEFAULT);
+		Image scaledImage = image.getImage().getScaledInstance(140, 120, Image.SCALE_DEFAULT);
 		image = new ImageIcon(scaledImage, image.getDescription());
 		imageVehicle.setActionCommand(vehicles.get(count).getName());
 		imageVehicle.setIcon(image);
