@@ -14,11 +14,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-<<<<<<< HEAD
-=======
 
 
->>>>>>> refs/remotes/origin/Tony
 import overideClasses.BackGroundPanel;
 import overideClasses.Button;
 import overideClasses.Panel;
@@ -34,8 +31,8 @@ import Vehicles.Frigate;
 import Vehicles.Jeep;
 public class addCarFrame extends simpleFrame{
 	private BackGroundPanel background;
-	public addCarFrame(int x,int y,int weight,int height,String title){
-		super(x,y,weight,height,title);
+	public addCarFrame(int weight,int height,String title){
+		super(weight,height,title);
 		setVisible(true);
 		setAlwaysOnTop(true);
 		background = new BackGroundPanel(new BorderLayout(),"/images/addCarBackground.png");

@@ -17,8 +17,8 @@ import overideClasses.simpleFrame;
 import overideClasses.Panel;
 
 public class testDriveFrame extends simpleFrame {
-	public testDriveFrame(int x,int y,int weight,int height,String title,String name){
-		super(x,y,weight,height,title);
+	public testDriveFrame(int weight,int height,String title,String name){
+		super(weight,height,title);
 		Panel pane = new Panel();
 		JLabel label = new JLabel();
 		label.setText("Enter the KM: ");
