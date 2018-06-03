@@ -1,3 +1,5 @@
+//Sami shamoon ashdod
+//Tony Schneider 205515828, Dani suhrayev 205583008
 package generalFrame;
 import java.awt.Color;
 import java.awt.Component;
@@ -11,17 +13,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-
 import overideClasses.Button;
 import overideClasses.Panel;
 import addCarFrame.addCarFrame;
+import Vehicles.SeaVehicle;
 import Vehicles.Vehicle;
 
 public class Contents {
@@ -47,12 +49,25 @@ public class Contents {
 			}
 		});
 		Button resetCars = new Button("/images/resetCars.png","/images/resetCars2.png");
+
 		resetCars.setBounds(new Rectangle(new Point(100,300),resetCars.getPreferredSize()));
 		resetCars.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for(int i=0;i<vehicles.size();i++){
 					(vehicles.get(i)).setZero();
+
+		resetCars.setBounds(new Rectangle(new Point(115,300),resetCars.getPreferredSize()));
+		resetCars.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the KM for all vehicles?", null, JOptionPane.YES_NO_OPTION);
+				if(result == JOptionPane.YES_OPTION){
+					for(int i=0;i<vehicles.size();i++){
+						vehicles.get(i).setZero();
+						images.get(i).setToolTipText(vehicles.get(i).toString());
+					}
 				}
 			}
 		});
@@ -62,6 +77,18 @@ public class Contents {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				changeFlagFrame changeFlagFrame = new changeFlagFrame(200,40,400,250,"Change Flag");
+
+		changeFlag.setBounds(new Rectangle(new Point(115,450),changeFlag.getPreferredSize()));
+		changeFlag.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeFlagFrame cfFrame = new changeFlagFrame(300,200,700,500,"Change flags");
+//				if(vehicles.size() > 0)
+					cfFrame.setVisible(true);
+//				else
+//					JOptionPane.showMessageDialog(null, "There are no cars in stock.");
+
 			}
 		});
 		JLabel background2 = new JLabel();
@@ -84,10 +111,28 @@ public class Contents {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Contents.removeImage(selectedField.getText());
+				if(!selectedField.getText().equals("")){
+					removeImage(selectedField.getText());
+				}
+				else
+					JOptionPane.showMessageDialog(null, "You need choose one of vehicles!");
+				selectedField.setText("");
 			}});
 		Button testDrive = new Button("/images/testDrive.png","/images/testDrive2.png");
 		testDrive.setBounds(new Rectangle(new Point(950,645),testDrive.getPreferredSize()));
+		testDrive.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				testDriveFrame tdFrame = new testDriveFrame(500,300,300,150,"Test Drive",selectedField.getText());
+				if(!selectedField.getText().equals("")){
+					tdFrame.setVisible(true);
+				}
+				else
+					JOptionPane.showMessageDialog(null, "You need choose one of vehicles!");
+				selectedField.setText("");
+			}
+		});
 		JLabel selected = new JLabel();
 		selected.setText("Selected vehicle : ");
 		selected.setBounds(new Rectangle(new Point(500,663),new Dimension(200,30)));
@@ -115,7 +160,6 @@ public class Contents {
 	}
 	public static List<Vehicle> getList(){return vehicles;}
 	public static void addImage(){
-		System.out.println(vehicles.get(count).getImage());
 		JToggleButton imageVehicle = new JToggleButton();
 		ImageIcon image;
 		if(vehicles.get(count).getImage() != null)
@@ -139,24 +183,38 @@ public class Contents {
 		images.add(imageVehicle);
 		group.add(imageVehicle);
 		viewCars.add(imageVehicle);
-		Contents.refreshPane();
+		refreshPane();
 	}
 	public static void removeImage(String name){
+		for(int i=0;i<images.size();i++)
+			if(vehicles.get(i).getName().equals(name)){
+				count--;
+				vehicles.remove(i);
+				images.remove(i);
+			}
 		viewCars.removeAll();
 		for(int i=0;i<images.size();i++){
-			if(!images.get(i).getActionCommand().equals(name)){
-				viewCars.add(images.get(i));
-				selectedField.setText("");
-				Contents.refreshPane();
-				}
-			else{
-				images.remove(i);
-				vehicles.remove(i);
-			}
+			viewCars.add(images.get(i));
 		}
+		refreshPane();
 	}
 	public static void refreshPane(){
 		viewCars.setVisible(false);
 		viewCars.setVisible(true);
+	}
+	public static void addKM(String name,int km){
+		for(int i=0;i<vehicles.size();i++)
+			if(vehicles.get(i).getName().equals(name)){
+				vehicles.get(i).addKM(km);
+				images.get(i).setToolTipText(vehicles.get(i).toString());
+			}
+		refreshPane();
+	}
+	public static void changeFlag(String flag){
+		for(int i=0;i<vehicles.size();i++)
+			if(vehicles.get(i) instanceof SeaVehicle){
+				((SeaVehicle)vehicles.get(i)).set_country_flag(flag);
+				images.get(i).setToolTipText(vehicles.get(i).toString());
+			}
 	}
 }

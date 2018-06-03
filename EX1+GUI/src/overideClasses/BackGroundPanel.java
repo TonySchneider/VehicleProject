@@ -1,9 +1,9 @@
+//Sami shamoon ashdod
+//Tony Schneider 205515828, Dani suhrayev 205583008
 package overideClasses;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.LayoutManager;
-import java.awt.Toolkit;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 

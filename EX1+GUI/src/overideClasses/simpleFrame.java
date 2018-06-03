@@ -1,3 +1,5 @@
+//Sami shamoon ashdod
+//Tony Schneider 205515828, Dani suhrayev 205583008
 package overideClasses;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -17,7 +19,6 @@ public class simpleFrame extends JFrame {
 		setIconImage(new ImageIcon(this.getClass().getResource("/images/icon.png")).getImage());
 		pack();
 		setSize(weight, height);
-		setVisible(true);
 	}
 	public void addComponent(Component contents){
 		revalidate();

@@ -1,3 +1,5 @@
+//Sami shamoon ashdod
+//Tony Schneider 205515828, Dani suhrayev 205583008
 package addCarFrame;
 
 import generalFrame.Contents;
@@ -12,12 +14,20 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> refs/remotes/origin/Tony
 import overideClasses.BackGroundPanel;
 import overideClasses.Button;
 import overideClasses.Panel;
 import overideClasses.ComboBox;
 import overideClasses.Field;
 import overideClasses.simpleFrame;
+import Vehicles.Amphibious;
+import Vehicles.Bicycle;
+import Vehicles.Cruise;
 import Vehicles.DownGame;
 import Vehicles.DownSpyware;
 import Vehicles.Frigate;
@@ -26,6 +36,7 @@ public class addCarFrame extends simpleFrame{
 	private BackGroundPanel background;
 	public addCarFrame(int x,int y,int weight,int height,String title){
 		super(x,y,weight,height,title);
+		setVisible(true);
 		setAlwaysOnTop(true);
 		background = new BackGroundPanel(new BorderLayout(),"/images/addCarBackground.png");
 		setContentPane(background);
@@ -178,23 +189,62 @@ public class addCarFrame extends simpleFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				labels[0].setText("");//name
+				//(labels[0].getFieldText(),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),Boolean.parseBoolean(comos[3].getComboText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()))
+				labels[0].setRed();//name
 				labels[1].setText("");//km
-				labels[2].setText("");//maxpassengers
-				labels[3].setText("");//maxspeed
-				labels[4].setText("");//flag
-				labels[5].setText("");//fualaverage
-				labels[6].setText("");//engineaverage
-				labels[7].setText("");//מקור הכוח
-				comos[0].setLock(0);//wheels
-				comos[1].setLock(0);//type of road
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setRed();//flag
+				labels[5].setRed();//fualaverage
+				labels[6].setRed();//engineaverage
+				labels[7].setText("Irelevent");//מקור הכוח
+				comos[0].setRed();//wheels
+				comos[1].setLock(1);//type of road
 				comos[2].setLock(0);//שימוש בכלי
-				comos[3].setLock(0);//כיוון השייט
+				comos[3].setRed();//כיוון השייט
 				comos[4].setLock(0);//ניקוד �?נרגטי
 				comos[5].setLock(0);//סוג הרישיון
 			}
 		});
-
+        options[5].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				labels[0].setRed();//name
+				labels[1].setText("0");//km
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setText("Irrelevant");//flag
+				labels[5].setText("Irrelevant");//fualaverage
+				labels[6].setText("Irrelevant");//engineaverage
+				labels[7].setText("manual");//מקור הכוח
+				comos[0].setLock(1);//wheels
+				comos[1].setRed();//type of road
+				comos[2].setLock(0);//שימוש בכלדי
+				comos[3].setLock(0);//כיוון השייט
+				comos[4].setLock(1);//ניקוד �?נרגטי
+				comos[5].setLock(0);//סוג הרישיון
+			}
+		});
+        options[6].addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				labels[0].setRed();//name
+				labels[1].setText("0");//km
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setRed();//flag
+				labels[5].setRed();//fualaverage
+				labels[6].setRed();;//engineaverage
+				labels[7].setText("Irrelevant");//מקור הכוח
+				comos[0].setLock(0);//wheels
+				comos[1].setLock(0);//type of road
+				comos[2].setLock(0);//שימוש בכלי
+				comos[3].setLock(1);//כיוון השייט
+				comos[4].setLock(0);//ניקוד �?נרגטי
+				comos[5].setLock(3);//סוג הרישיון
+			}
+		});
         
 		imagePanel chooseImagePane = new imagePanel();
 		chooseImagePane.setBounds(new Rectangle(new Point(0,330),new Dimension(600, 500)));
@@ -245,9 +295,46 @@ public class addCarFrame extends simpleFrame{
 					Contents.addVehicle(newDownGame);
 					Contents.addImage();
 					break;
+				case "Amphibious":
+					Amphibious newAmphibious;
+					if(comos[3].getComboText().equals("With"))
+						newAmphibious = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+					else
+						newAmphibious = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+					if(openFilePanel.opened())
+						newAmphibious.setImagePath(openFilePanel.getFilePath());
+					else
+						newAmphibious.setImage(imagePanel.getSelected());
+					Contents.addVehicle(newAmphibious);
+					Contents.addImage();
+					break;
+				case "Bicycle":
+					Bicycle newBicycle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
+					if(openFilePanel.opened())
+						newBicycle.setImagePath(openFilePanel.getFilePath());
+					else
+						newBicycle.setImage(imagePanel.getSelected());
+					Contents.addVehicle(newBicycle);
+					Contents.addImage();
+					break;
+				case "Cruise":
+					Cruise newCruise = new Cruise(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+					if(openFilePanel.opened())
+						newCruise.setImagePath(openFilePanel.getFilePath());
+					else
+						newCruise.setImage(imagePanel.getSelected());
+					Contents.addVehicle(newCruise);
+					Contents.addImage();
+					break;
 				default:
 					break;
 				}
+//		        options[4] = new JRadioButton("Amphibious");
+//		        options[4].setActionCommand("Amphibious");
+//		        options[5] = new JRadioButton("Bicycle");
+//		        options[5].setActionCommand("Bicycle");
+//		        options[6] = new JRadioButton("Cruise");
+//		        options[6].setActionCommand("Cruise");
 				dispose();
 			}
 		});
