@@ -90,7 +90,7 @@ public class Contents {
 		viewCars.setLayout(new GridLayout(4,4,0,0));
 		viewCars.setBounds(new Rectangle(new Point(260,10),new Dimension(740,520)));
 		Button buyCar = new Button("/images/buy.png","/images/buy2.png");
-		buyCar.setBounds(new Rectangle(new Point(260,575),buyCar.getPreferredSize()));
+		buyCar.setBounds(new Rectangle(new Point(260,580),buyCar.getPreferredSize()));
 		buyCar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -103,7 +103,7 @@ public class Contents {
 				selectedField.setText("");
 			}});
 		Button testDrive = new Button("/images/testDrive.png","/images/testDrive2.png");
-		testDrive.setBounds(new Rectangle(new Point(400,575),testDrive.getPreferredSize()));
+		testDrive.setBounds(new Rectangle(new Point(400,580),testDrive.getPreferredSize()));
 		testDrive.addActionListener(new ActionListener() {
 			
 			@Override
@@ -122,7 +122,7 @@ public class Contents {
 		selected.setBounds(new Rectangle(new Point(250,545),new Dimension(200,30)));
 		selected.setFont(new Font("Arial", Font.BOLD, 20));
 		selectedField = new JTextField();
-		selectedField.setBounds(new Rectangle(new Point(680,660),new Dimension(200,40)));
+		selectedField.setBounds(new Rectangle(new Point(430,545),new Dimension(200,30)));
 		selectedField.setFont(new Font("Arial", Font.BOLD, 20));
 		selectedField.setEditable(false);
 		pane.add(selectedField);
