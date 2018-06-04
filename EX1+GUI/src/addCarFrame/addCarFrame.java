@@ -23,7 +23,7 @@ import overideClasses.ComboBox;
 import overideClasses.Field;
 import overideClasses.simpleFrame;
 import Vehicles.Amphibious;
-import Vehicles.Bicycle;
+import Vehicles.SimpleBicycle;
 import Vehicles.Cruise;
 import Vehicles.DownGame;
 import Vehicles.DownSpyware;
@@ -40,7 +40,7 @@ public class addCarFrame extends simpleFrame{
 		Panel pane = new Panel();
 		JPanel chooseCarPane = new JPanel(new FlowLayout());
 		chooseCarPane.setOpaque(false);
-		JRadioButton[] options = new JRadioButton[7];
+		JRadioButton[] options = new JRadioButton[9];
         options[0] = new JRadioButton("Jeep");
         options[0].setActionCommand("Jeep");
         options[1] = new JRadioButton("Frigate");
@@ -51,10 +51,14 @@ public class addCarFrame extends simpleFrame{
         options[3].setActionCommand("DownGame");
         options[4] = new JRadioButton("Amphibious");
         options[4].setActionCommand("Amphibious");
-        options[5] = new JRadioButton("Bicycle");
-        options[5].setActionCommand("Bicycle");
+        options[5] = new JRadioButton("SimpleBicycle");
+        options[5].setActionCommand("SimpleBicycle");
         options[6] = new JRadioButton("Cruise");
         options[6].setActionCommand("Cruise");
+        options[7] = new JRadioButton("ElectricBicycle");
+        options[7].setActionCommand("ElectricBicycle");
+        options[8] = new JRadioButton("HybridAircraft");
+        options[8].setActionCommand("HybridAircraft");
         ButtonGroup group = new ButtonGroup();
         for(int i=0;i<options.length;i++) {
 //        	options[i].setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -242,6 +246,44 @@ public class addCarFrame extends simpleFrame{
 				comos[5].setLock(3);//סוג הרישיון
 			}
 		});
+        options[7].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				labels[0].setRed();//name
+				labels[1].setText("0");//km
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setText("Irrelevant");//flag
+				labels[5].setText("20");//fualaverage
+				labels[6].setRed();//engineaverage
+				labels[7].setText("Irrelevant");//מקור הכוח
+				comos[0].setLock(1);//wheels
+				comos[1].setRed();//type of road
+				comos[2].setLock(0);//שימוש בכלדי
+				comos[3].setLock(0);//כיוון השייט
+				comos[4].setLock(0);//ניקוד �?נרגטי
+				comos[5].setLock(0);//סוג הרישיון
+			}
+		});
+        options[8].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				labels[0].setRed();//name
+				labels[1].setText("0");//km
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setRed();//flag
+				labels[5].setRed();//fualaverage
+				labels[6].setRed();//engineaverage
+				labels[7].setText("Irrelevant");//מקור הכוח
+				comos[0].setRed();//wheels
+				comos[1].setLock(1);//type of road
+				comos[2].setLock(1);//שימוש בכלדי
+				comos[3].setRed();//כיוון השייט
+				comos[4].setLock(0);//ניקוד �?נרגטי
+				comos[5].setLock(0);//סוג הרישיון
+			}
+		});
         
 		imagePanel chooseImagePane = new imagePanel();
 		chooseImagePane.setBounds(new Rectangle(new Point(0,330),new Dimension(600, 500)));
@@ -305,8 +347,8 @@ public class addCarFrame extends simpleFrame{
 					Contents.addVehicle(newAmphibious);
 					Contents.addImage();
 					break;
-				case "Bicycle":
-					Bicycle newBicycle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
+				case "SimpleBicycle":
+					SimpleBicycle newBicycle = new SimpleBicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
 					if(openFilePanel.opened())
 						newBicycle.setImagePath(openFilePanel.getFilePath());
 					else
@@ -328,8 +370,8 @@ public class addCarFrame extends simpleFrame{
 				}
 //		        options[4] = new JRadioButton("Amphibious");
 //		        options[4].setActionCommand("Amphibious");
-//		        options[5] = new JRadioButton("Bicycle");
-//		        options[5].setActionCommand("Bicycle");
+//		        options[5] = new JRadioButton("SimpleBicycle");
+//		        options[5].setActionCommand("SimpleBicycle");
 //		        options[6] = new JRadioButton("Cruise");
 //		        options[6].setActionCommand("Cruise");
 				dispose();

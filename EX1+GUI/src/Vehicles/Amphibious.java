@@ -1,7 +1,6 @@
-package Vehicles;
-
 //Sami shamoon ashdod
 //Tony Schneider 205515828, Dani suhrayev 205583008
+package Vehicles;
 import Interfaces.ILandVehicle;
 import Interfaces.ISeaVehicle;
 import Interfaces.MotorizedVehicle;
