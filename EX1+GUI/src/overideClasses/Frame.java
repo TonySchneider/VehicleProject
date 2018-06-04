@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
-public class Frame extends JFrame {
+public class Frame extends JFrame implements Runnable {
 		private BackGroundPanel background;
 		public Frame(){
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -26,7 +26,6 @@ public class Frame extends JFrame {
 			setPreferredSize(new Dimension(1000,700));
 			setLocation(new Point(width/2-getPreferredSize().width/2,height/2-(int)(getPreferredSize().height/1.9)));
 			pack();
-			setVisible(true);
 		}
 	public void addComponent(Component contents){
 		revalidate();
@@ -35,4 +34,9 @@ public class Frame extends JFrame {
 		revalidate();
 		repaint();
 	}
+	@Override
+	public void run() {
+		setVisible(true);
+	}
+	
 }

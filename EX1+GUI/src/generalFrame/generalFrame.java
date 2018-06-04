@@ -12,8 +12,7 @@ public class generalFrame {
 		frame = new Frame();
 		Component contents = new Contents().createComponents();
 		frame.addComponent(contents);
+		new Thread(frame).start();
 	}
-	public static void unVisible(){
-		frame.setVisible(false);
-	}
+	
 }

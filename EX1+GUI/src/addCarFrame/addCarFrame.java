@@ -3,6 +3,7 @@
 package addCarFrame;
 
 import generalFrame.Contents;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,9 +12,11 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
 
 
 import overideClasses.BackGroundPanel;
@@ -29,12 +32,12 @@ import Vehicles.DownGame;
 import Vehicles.DownSpyware;
 import Vehicles.Frigate;
 import Vehicles.Jeep;
+import Vehicles.Vehicle;
 public class addCarFrame extends simpleFrame{
 	private BackGroundPanel background;
 	public addCarFrame(int weight,int height,String title){
 		super(weight,height,title);
-		setVisible(true);
-		setAlwaysOnTop(true);
+//		setAlwaysOnTop(true);
 		background = new BackGroundPanel(new BorderLayout(),"/images/addCarBackground.png");
 		setContentPane(background);
 		Panel pane = new Panel();
@@ -255,83 +258,36 @@ public class addCarFrame extends simpleFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String which = group.getSelection().getActionCommand();
+				Vehicle vehicle = null;
 				switch(which){
 				case "Jeep":
-					Jeep newJeep = new Jeep(labels[0].getFieldText(),Integer.parseInt(labels[3].getFieldText()),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					if(openFilePanel.opened())
-						newJeep.setImagePath(openFilePanel.getFilePath());
-					else
-						newJeep.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newJeep);
-					Contents.addImage();
+					vehicle = new Jeep(labels[0].getFieldText(),Integer.parseInt(labels[3].getFieldText()),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
 					break;
 				case "Frigate":
-					Frigate newFrigate = new Frigate(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Boolean.parseBoolean(comos[3].getComboText()),labels[4].getFieldText());
-					if(openFilePanel.opened())
-						newFrigate.setImagePath(openFilePanel.getFilePath());
-					else
-						newFrigate.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newFrigate);
-					Contents.addImage();
+					vehicle = new Frigate(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Boolean.parseBoolean(comos[3].getComboText()),labels[4].getFieldText());
 					break;
 				case "DownSpyware":
-					DownSpyware newDownSpyware = new DownSpyware(labels[0].getFieldText(),labels[7].getFieldText());
-					if(openFilePanel.opened())
-						newDownSpyware.setImagePath(openFilePanel.getFilePath());
-					else
-						newDownSpyware.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newDownSpyware);
-					Contents.addImage();
+					vehicle = new DownSpyware(labels[0].getFieldText(),labels[7].getFieldText());
 					break;
 				case "DownGame":
-					DownGame newDownGame = new DownGame(labels[0].getFieldText());
-					if(openFilePanel.opened())
-						newDownGame.setImagePath(openFilePanel.getFilePath());
-					else
-						newDownGame.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newDownGame);
-					Contents.addImage();
+					vehicle = new DownGame(labels[0].getFieldText());
 					break;
 				case "Amphibious":
-					Amphibious newAmphibious;
 					if(comos[3].getComboText().equals("With"))
-						newAmphibious = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						vehicle = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
 					else
-						newAmphibious = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					if(openFilePanel.opened())
-						newAmphibious.setImagePath(openFilePanel.getFilePath());
-					else
-						newAmphibious.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newAmphibious);
-					Contents.addImage();
+						vehicle = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
 					break;
 				case "Bicycle":
-					Bicycle newBicycle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
-					if(openFilePanel.opened())
-						newBicycle.setImagePath(openFilePanel.getFilePath());
-					else
-						newBicycle.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newBicycle);
-					Contents.addImage();
+					vehicle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
 					break;
 				case "Cruise":
-					Cruise newCruise = new Cruise(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					if(openFilePanel.opened())
-						newCruise.setImagePath(openFilePanel.getFilePath());
-					else
-						newCruise.setImage(imagePanel.getSelected());
-					Contents.addVehicle(newCruise);
-					Contents.addImage();
+					vehicle = new Cruise(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
 					break;
 				default:
 					break;
 				}
-//		        options[4] = new JRadioButton("Amphibious");
-//		        options[4].setActionCommand("Amphibious");
-//		        options[5] = new JRadioButton("Bicycle");
-//		        options[5].setActionCommand("Bicycle");
-//		        options[6] = new JRadioButton("Cruise");
-//		        options[6].setActionCommand("Cruise");
+				Contents.addVehicle(vehicle);
 				dispose();
 			}
 		});

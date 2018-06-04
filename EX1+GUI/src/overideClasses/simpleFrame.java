@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
-public class simpleFrame extends JFrame {
+public class simpleFrame extends JFrame implements Runnable {
 	public simpleFrame(int weight,int height,String title){
 		super(title);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -23,7 +23,7 @@ public class simpleFrame extends JFrame {
 //		applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		setIconImage(new ImageIcon(this.getClass().getResource("/images/icon.png")).getImage());
 		pack();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 //		setSize(weight, height);
 	}
 	public void addComponent(Component contents){
@@ -32,5 +32,9 @@ public class simpleFrame extends JFrame {
 		add(contents,BorderLayout.CENTER);
 		revalidate();
 		repaint();
+	}
+	@Override
+	public void run() {
+		setVisible(true);
 	}
 }

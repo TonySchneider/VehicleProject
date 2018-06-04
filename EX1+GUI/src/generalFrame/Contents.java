@@ -25,7 +25,13 @@ import javax.swing.JToggleButton;
 
 import overideClasses.Button;
 import overideClasses.Panel;
+import overideClasses.updateDatabaseAfterAddVehicle;
+import overideClasses.updateDatabaseAfterBuy;
+import overideClasses.updateDatabaseAfterChangeFlag;
+import overideClasses.updateDatabaseAfterReset;
 import addCarFrame.addCarFrame;
+import addCarFrame.imagePanel;
+import addCarFrame.openFilePanel;
 import Vehicles.SeaVehicle;
 import Vehicles.Vehicle;
 
@@ -37,22 +43,29 @@ public class Contents {
 	private static Panel viewCars;
 	private static ButtonGroup group = new ButtonGroup();
 	private static JTextField selectedField;
+	public static JLabel noCarsYet;
 	public Component createComponents(){
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int)screenSize.getWidth();
 		int height = (int)screenSize.getHeight();
 		pane = new Panel();
+		JLabel catalog = new JLabel();
+		catalog.setText("Cars Catalog");
+//		catalog.setForeground(Color.white);
+		catalog.setFont(new Font("Arial", Font.BOLD, 20));
+		catalog.setBounds(new Rectangle(new Point(250,10), catalog.getPreferredSize()));
 		JLabel copyright = new JLabel("copyright");
-		copyright.setText("Powered by TonySchneider(205515828) & DanielSuhrayev(205583008)");
+		copyright.setText("Powered by TonySchneider & DanielSuhrayev");
 		copyright.setForeground(Color.white);
-		copyright.setBounds(new Rectangle(new Point(950,735), copyright.getPreferredSize()));
-//		setLocation(new Point(width/2-getPreferredSize().width/2,height/2-(int)(getPreferredSize().height/1.9)));
+		copyright.setFont(new Font("Arial", Font.BOLD, 9));
+		copyright.setBounds(new Rectangle(new Point(5,645), copyright.getPreferredSize()));
 		Button addCar = new Button("/images/addCarButton.png","/images/addCarButton2.png");
 		addCar.setBounds(new Rectangle(new Point(7,20),addCar.getPreferredSize()));
 		addCar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCarFrame addCarFrame = new addCarFrame(600,700,"add new car");
+				Thread addCarFrame = new Thread(new addCarFrame(600,700,"add new car"));
+				addCarFrame.start();
 			}
 		});
 		Button resetCars = new Button("/images/resetCars.png","/images/resetCars2.png");
@@ -63,10 +76,8 @@ public class Contents {
 			public void actionPerformed(ActionEvent e) {
 				int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the KM for all vehicles?", null, JOptionPane.YES_NO_OPTION);
 				if(result == JOptionPane.YES_OPTION){
-					for(int i=0;i<vehicles.size();i++){
-						vehicles.get(i).setZero();
-						images.get(i).setToolTipText(vehicles.get(i).toString());
-					}
+					Thread udFrame = new Thread(new updateDatabaseAfterReset());
+					udFrame.start();
 				}
 			}
 		});
@@ -76,19 +87,16 @@ public class Contents {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changeFlagFrame cfFrame = new changeFlagFrame(700,500,"Change flags");
-//				if(vehicles.size() > 0)
-					cfFrame.setVisible(true);
-//				else
-//					JOptionPane.showMessageDialog(null, "There are no cars in stock.");
+				Thread cfFrame = new Thread(new changeFlagFrame(700,500,"Change flags"));
+				cfFrame.start();
 			}
 		});
-//		JLabel background2 = new JLabel();
-//		background2.setIcon(new ImageIcon(this.getClass().getResource("/images/background2.png")));
-//		background2.setBounds(new Rectangle(new Point(480,30),background2.getPreferredSize()));
+		noCarsYet = new JLabel();
+		noCarsYet.setIcon(new ImageIcon(this.getClass().getResource("/images/nocarsyet.png")));
+		noCarsYet.setBounds(new Rectangle(new Point(420,200),noCarsYet.getPreferredSize()));
 		viewCars = new Panel();
 		viewCars.setLayout(new GridLayout(4,4,0,0));
-		viewCars.setBounds(new Rectangle(new Point(260,10),new Dimension(740,520)));
+		viewCars.setBounds(new Rectangle(new Point(260,40),new Dimension(700,500)));
 		Button buyCar = new Button("/images/buy.png","/images/buy2.png");
 		buyCar.setBounds(new Rectangle(new Point(260,580),buyCar.getPreferredSize()));
 		buyCar.addActionListener(new ActionListener() {
@@ -96,7 +104,11 @@ public class Contents {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!selectedField.getText().equals("")){
-					removeImage(selectedField.getText());
+					int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy "+selectedField.getText()+" car?", null, JOptionPane.YES_NO_OPTION);
+					if(result == JOptionPane.YES_OPTION){
+						Thread udFrame = new Thread(new updateDatabaseAfterBuy(selectedField.getText()));
+						udFrame.start();
+					}
 				}
 				else
 					JOptionPane.showMessageDialog(null, "You need choose one of vehicles!");
@@ -110,7 +122,7 @@ public class Contents {
 			public void actionPerformed(ActionEvent e) {
 				testDriveFrame tdFrame = new testDriveFrame(300,150,"Test Drive",selectedField.getText());
 				if(!selectedField.getText().equals("")){
-					tdFrame.setVisible(true);
+					new Thread(tdFrame).start();
 				}
 				else
 					JOptionPane.showMessageDialog(null, "You need choose one of vehicles!");
@@ -131,15 +143,18 @@ public class Contents {
 		pane.add(buyCar);
 		pane.add(viewCars);
 		pane.add(copyright);
-//		pane.add(background2);
 		pane.add(resetCars);
 		pane.add(changeFlag);
 		pane.add(addCar);
+		pane.add(catalog);
+		pane.add(noCarsYet);
 		return pane;
 	}
 	public static void addVehicle(Vehicle vehicle){
 		count++;
-		vehicles.add(vehicle);
+		pane.remove(noCarsYet);
+		Thread udV = new Thread(new updateDatabaseAfterAddVehicle(vehicle));
+		udV.start();
 	}
 	public static List<Vehicle> getList(){return vehicles;}
 	public static void addImage(){
@@ -175,6 +190,9 @@ public class Contents {
 				vehicles.remove(i);
 				images.remove(i);
 			}
+		if(count == -1){
+			pane.add(noCarsYet);
+		}
 		viewCars.removeAll();
 		for(int i=0;i<images.size();i++){
 			viewCars.add(images.get(i));
@@ -194,10 +212,9 @@ public class Contents {
 		refreshPane();
 	}
 	public static void changeFlag(String flag){
-		for(int i=0;i<vehicles.size();i++)
-			if(vehicles.get(i) instanceof SeaVehicle){
-				((SeaVehicle)vehicles.get(i)).set_country_flag(flag);
-				images.get(i).setToolTipText(vehicles.get(i).toString());
-			}
+		Thread udF = new Thread(new updateDatabaseAfterChangeFlag(flag));
+		udF.start();
 	}
+	public static List<Vehicle> getVehicles(){return vehicles;}
+	public static List<JToggleButton> getImages(){return images;}
 }
