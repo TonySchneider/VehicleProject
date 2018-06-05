@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 import generalFrame.*;
@@ -44,7 +45,7 @@ public class updateDatabase extends simpleFrame {
 			reduce();
 			dispose();
 		}catch(Exception e){
-			
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
 	public void reduce(){

@@ -1,9 +1,7 @@
 //Sami shamoon ashdod
 //Tony Schneider 205515828, Dani suhrayev 205583008
 package addCarFrame;
-
 import generalFrame.Contents;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,13 +10,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
-
-
 import overideClasses.BackGroundPanel;
 import overideClasses.Button;
 import overideClasses.Panel;
@@ -33,7 +27,7 @@ import Vehicles.DownSpyware;
 import Vehicles.Frigate;
 import Vehicles.Jeep;
 import Vehicles.Vehicle;
-public class addCarFrame extends simpleFrame{
+public class addCarFrame extends simpleFrame {
 	private BackGroundPanel background;
 	public addCarFrame(int weight,int height,String title){
 		super(weight,height,title);
