@@ -64,7 +64,7 @@ public class Contents {
 		addCar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Thread addCarFrame = new Thread(new addCarFrame(600,700,"add new car"));
+				Thread addCarFrame = new Thread(new addCarFrame(700,700,"add new car"));
 				addCarFrame.start();
 			}
 		});

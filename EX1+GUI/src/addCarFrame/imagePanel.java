@@ -35,7 +35,7 @@ public class imagePanel extends Panel implements ListSelectionListener{
         splitPane.setDividerLocation(0.5);
         splitPane.setBounds(new Rectangle(new Point(10,90),splitPane.getPreferredSize()));
         openFilePanel ofpane = new openFilePanel();
-        ofpane.setBounds(new Rectangle(new Point(340,90),splitPane.getPreferredSize()));
+        ofpane.setBounds(new Rectangle(new Point(400,90),splitPane.getPreferredSize()));
         add(ofpane);
         add(splitPane);
 	}

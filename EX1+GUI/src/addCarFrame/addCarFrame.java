@@ -40,12 +40,12 @@ public class addCarFrame extends simpleFrame {
 		generalFrame.setAddCarLocation();
 		setLocation(0,getY());
 //		setAlwaysOnTop(true);
-		background = new BackGroundPanel(new BorderLayout(),"/images/addCarBackground.png");
+		background = new BackGroundPanel(new BorderLayout(),"/images/addCarBackground2.png");
 		setContentPane(background);
 		Panel pane = new Panel();
 		JPanel chooseCarPane = new JPanel(new FlowLayout());
 		chooseCarPane.setOpaque(false);
-		JRadioButton[] options = new JRadioButton[7];
+		JRadioButton[] options = new JRadioButton[9];
         options[0] = new JRadioButton("Jeep");
         options[0].setActionCommand("Jeep");
         options[1] = new JRadioButton("Frigate");
@@ -60,37 +60,41 @@ public class addCarFrame extends simpleFrame {
         options[5].setActionCommand("Bicycle");
         options[6] = new JRadioButton("Cruise");
         options[6].setActionCommand("Cruise");
+        options[7] = new JRadioButton("HybridAircraft");
+        options[7].setActionCommand("HybridAircraft");
+        options[8] = new JRadioButton("ElectricBicycle");
+        options[8].setActionCommand("ElectricBicycle");
         ButtonGroup group = new ButtonGroup();
         for(int i=0;i<options.length;i++) {
 //        	options[i].setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            options[i].setFont(new Font("Arial", Font.BOLD, 12));
+            options[i].setFont(new Font("Arial", Font.BOLD, 9));
             options[i].setOpaque(false);
         	group.add(options[i]);
         	chooseCarPane.add(options[i]);
         }
-        chooseCarPane.setBounds(new Rectangle(new Point(10,35),chooseCarPane.getPreferredSize()));
+        chooseCarPane.setBounds(new Rectangle(new Point(0,35),chooseCarPane.getPreferredSize()));
         Field[] labels = new Field[8];
-        labels[0] = new Field(24,85);//name
-        labels[1] = new Field(170,85);//km
-        labels[2] = new Field(410,85);//maxpassengers
-        labels[3] = new Field(40,132);//maxspeed
-        labels[4] = new Field(190,132);//flag
-        labels[5] = new Field(50,260);//fualaverage
-        labels[6] = new Field(100,218);//engineaverage
-        labels[7] = new Field(215,177);;//מקור הכוח
+        labels[0] = new Field(35,85);//name
+        labels[1] = new Field(210,85);//km
+        labels[2] = new Field(490,85);//maxpassengers
+        labels[3] = new Field(50,132);//maxspeed
+        labels[4] = new Field(240,132);//flag
+        labels[5] = new Field(60,260);//fualaverage
+        labels[6] = new Field(130,218);//engineaverage
+        labels[7] = new Field(250,177);;//מקור הכוח
         ComboBox[] comos = new ComboBox[6];
         String[] strs = {"Irrelevant","2","4"};
-        comos[0] = new ComboBox(330,218,strs);//wheels
+        comos[0] = new ComboBox(390,218,strs);//wheels
         String[] strs2 = {"Irrelevant","Paved","dirt"};
-        comos[1] = new ComboBox(390,132,strs2);//type of road
+        comos[1] = new ComboBox(470,132,strs2);//type of road
         String[] strs3 = {"Irrelevant","Army","civil"};
-        comos[2] = new ComboBox(-7,177,strs3);//שימוש בכלי
+        comos[2] = new ComboBox(10,177,strs3);//שימוש בכלי
         String[] strs4 = {"Irrelevant","With","Not With"};
-        comos[3] = new ComboBox(400,177,strs4);//כיוון השייט
+        comos[3] = new ComboBox(480,177,strs4);//כיוון השייט
         String[] strs5 = {"Irrelevant","A","B","C"};
-        comos[4] = new ComboBox(300,260,strs5);//ניקוד �?נרגטי
+        comos[4] = new ComboBox(350,260,strs5);//ניקוד �?נרגטי
         String[] strs6 = {"Irrelevant","MINI","LIMIT","UNLIMIT"};
-        comos[5] = new ComboBox(50,300,strs6);//סוג הרישיון
+        comos[5] = new ComboBox(60,300,strs6);//סוג הרישיון
         
 		labels[0].setText("");//name
 		labels[1].setText("");//km
@@ -247,6 +251,46 @@ public class addCarFrame extends simpleFrame {
 				comos[5].setLock(3);//סוג הרישיון
 			}
 		});
+        options[7].addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				labels[0].setRed();//name
+				labels[1].setText("0");//km
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setRed();//flag
+				labels[5].setRed();//fualaverage
+				labels[6].setRed();;//engineaverage
+				labels[7].setText("Irrelevant");//מקור הכוח
+				comos[0].setLock(0);//wheels
+				comos[1].setLock(0);//type of road
+				comos[2].setLock(0);//שימוש בכלי
+				comos[3].setLock(1);//כיוון השייט
+				comos[4].setLock(0);//ניקוד �?נרגטי
+				comos[5].setLock(3);//סוג הרישיון
+			}
+		});
+        options[8].addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				labels[0].setRed();//name
+				labels[1].setText("0");//km
+				labels[2].setRed();//maxpassengers
+				labels[3].setRed();//maxspeed
+				labels[4].setText("Irrelevant");//flag
+				labels[5].setText("20");//fualaverage
+				labels[6].setRed();//engineaverage
+				labels[7].setText("manual");//מקור הכוח
+				comos[0].setLock(1);//wheels
+				comos[1].setRed();//type of road
+				comos[2].setLock(0);//שימוש בכלדי
+				comos[3].setLock(0);//כיוון השייט
+				comos[4].setLock(1);//ניקוד �?נרגטי
+				comos[5].setLock(0);//סוג הרישיון}
+			}
+		});
         
 		imagePanel chooseImagePane = new imagePanel();
 		chooseImagePane.setBounds(new Rectangle(new Point(0,330),new Dimension(600, 500)));
@@ -254,7 +298,7 @@ public class addCarFrame extends simpleFrame {
         for(int i=0;i<labels.length;i++) pane.add(labels[i]);
         for(int i=0;i<comos.length;i++) pane.add(comos[i]);
         Button submit = new Button("/images/addButton.png","/images/addButton2.png");
-        submit.setBounds(new Rectangle(new Point(440,590),submit.getPreferredSize()));
+        submit.setBounds(new Rectangle(new Point(530,590),submit.getPreferredSize()));
         submit.addActionListener(new ActionListener() {
 			
 			@Override

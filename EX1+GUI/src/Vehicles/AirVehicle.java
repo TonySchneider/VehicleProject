@@ -3,7 +3,7 @@
 package Vehicles;
 
 
-public abstract class AirVehicle extends Vehicle {
+public class AirVehicle extends Vehicle {
 	protected String Using;
 	public AirVehicle(String Model,int MaxPassengers,int MaxSpeed,String Using){
 		super(Model,MaxPassengers,MaxSpeed);
