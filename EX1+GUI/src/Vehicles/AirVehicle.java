@@ -18,4 +18,7 @@ public abstract class AirVehicle extends Vehicle {
 		if(super.equals(other) && this.Using == other.Using) return true;
 		return false;
 	}
+	public String getType(){
+		return "Air";
+	}
 }

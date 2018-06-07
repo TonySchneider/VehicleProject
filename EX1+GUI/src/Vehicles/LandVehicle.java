@@ -22,4 +22,7 @@ public class LandVehicle extends Vehicle {
 		if(super.equals(other) && this.Wheels == other.Wheels && this.type_of_road == other.type_of_road) return true;
 		return false;
 	}
+	public String getType(){
+		return "Land";
+	}
 }

@@ -11,6 +11,7 @@ public class updateDatabaseAfterAddVehicle extends updateDatabase {
 		this.vehicle = vehicle;
 	}
 	public void reduce(){
+		super.reduce();
 		if(openFilePanel.opened())
 			vehicle.setImagePath(openFilePanel.getFilePath());
 		else

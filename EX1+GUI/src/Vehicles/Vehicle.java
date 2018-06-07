@@ -32,4 +32,8 @@ public abstract class Vehicle {
 	public String getImage(){return imageName;}
 	public void setImagePath(String imagePath){ this.imagePath = imagePath;}
 	public String getImagePath(){return imagePath;}
+	public String getModel(){return name;}
+	public String getType(){
+		return null;
+	}
 }

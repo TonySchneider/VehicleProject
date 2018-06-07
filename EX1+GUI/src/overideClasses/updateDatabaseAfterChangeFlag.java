@@ -9,6 +9,7 @@ public class updateDatabaseAfterChangeFlag extends updateDatabase {
 		this.flag = flag;
 	}
 	public void reduce(){
+		super.reduce();
 		for(int i=0;i<Contents.getVehicles().size();i++)
 			if(Contents.getVehicles().get(i) instanceof SeaVehicle){
 				((SeaVehicle)Contents.getVehicles().get(i)).set_country_flag(flag);

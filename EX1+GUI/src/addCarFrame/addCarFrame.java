@@ -2,6 +2,7 @@
 //Tony Schneider 205515828, Dani suhrayev 205583008
 package addCarFrame;
 import generalFrame.Contents;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,9 +11,13 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
 import overideClasses.BackGroundPanel;
 import overideClasses.Button;
 import overideClasses.Panel;
@@ -27,10 +32,13 @@ import Vehicles.DownSpyware;
 import Vehicles.Frigate;
 import Vehicles.Jeep;
 import Vehicles.Vehicle;
+import generalFrame.generalFrame;
 public class addCarFrame extends simpleFrame {
 	private BackGroundPanel background;
 	public addCarFrame(int weight,int height,String title){
 		super(weight,height,title);
+		generalFrame.setAddCarLocation();
+		setLocation(0,getY());
 //		setAlwaysOnTop(true);
 		background = new BackGroundPanel(new BorderLayout(),"/images/addCarBackground.png");
 		setContentPane(background);
@@ -253,40 +261,55 @@ public class addCarFrame extends simpleFrame {
 			public void actionPerformed(ActionEvent e) {
 				String which = group.getSelection().getActionCommand();
 				Vehicle vehicle = null;
-				switch(which){
-				case "Jeep":
-					vehicle = new Jeep(labels[0].getFieldText(),Integer.parseInt(labels[3].getFieldText()),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					break;
-				case "Frigate":
-					vehicle = new Frigate(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Boolean.parseBoolean(comos[3].getComboText()),labels[4].getFieldText());
-					break;
-				case "DownSpyware":
-					vehicle = new DownSpyware(labels[0].getFieldText(),labels[7].getFieldText());
-					break;
-				case "DownGame":
-					vehicle = new DownGame(labels[0].getFieldText());
-					break;
-				case "Amphibious":
-					if(comos[3].getComboText().equals("With"))
-						vehicle = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					else
-						vehicle = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					break;
-				case "Bicycle":
-					vehicle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
-					break;
-				case "Cruise":
-					vehicle = new Cruise(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
-					break;
-				default:
-					break;
+				if(Contents.exists(labels[0].getFieldText())){
+					JOptionPane.showMessageDialog(null, "this name is exists, set other name!");
 				}
-				Contents.addVehicle(vehicle);
-				dispose();
+				else{
+					switch(which){
+					case "Jeep":
+						vehicle = new Jeep(labels[0].getFieldText(),Integer.parseInt(labels[3].getFieldText()),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						break;
+					case "Frigate":
+						vehicle = new Frigate(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Boolean.parseBoolean(comos[3].getComboText()),labels[4].getFieldText());
+						break;
+					case "DownSpyware":
+						vehicle = new DownSpyware(labels[0].getFieldText(),labels[7].getFieldText());
+						break;
+					case "DownGame":
+						vehicle = new DownGame(labels[0].getFieldText());
+						break;
+					case "Amphibious":
+						if(comos[3].getComboText().equals("With"))
+							vehicle = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						else
+							vehicle = new Amphibious(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),comos[1].getComboText(),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						break;
+					case "Bicycle":
+						vehicle = new Bicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText());
+						break;
+					case "Cruise":
+						vehicle = new Cruise(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						break;
+					default:
+						break;
+					}
+					Contents.addVehicle(vehicle);
+					generalFrame.setDefaultLocation();
+					dispose();
+				}
 			}
 		});
         pane.add(submit);
         pane.add(chooseCarPane);
         addComponent(pane);
 	}
+    @Override
+    protected void processWindowEvent(WindowEvent e) {
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+        	generalFrame.setDefaultLocation();
+			super.processWindowEvent(e); 
+        } else {        
+            super.processWindowEvent(e); 
+        }
+    }
 }

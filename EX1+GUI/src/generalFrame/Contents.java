@@ -104,10 +104,14 @@ public class Contents {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!selectedField.getText().equals("")){
-					int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy "+selectedField.getText()+" car?", null, JOptionPane.YES_NO_OPTION);
-					if(result == JOptionPane.YES_OPTION){
-						Thread udFrame = new Thread(new updateDatabaseAfterBuy(selectedField.getText()));
-						udFrame.start();
+					if(existsInDrive(returnVehicle()))
+						JOptionPane.showMessageDialog(null, "This vehicle in test drive now!");
+					else{
+						int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy "+selectedField.getText()+" car?", null, JOptionPane.YES_NO_OPTION);
+						if(result == JOptionPane.YES_OPTION){
+							Thread udFrame = new Thread(new updateDatabaseAfterBuy(selectedField.getText()));
+							udFrame.start();
+						}
 					}
 				}
 				else
@@ -120,9 +124,18 @@ public class Contents {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				testDriveFrame tdFrame = new testDriveFrame(300,150,"Test Drive",selectedField.getText());
+				
 				if(!selectedField.getText().equals("")){
-					new Thread(tdFrame).start();
+					if(existsInDrive(returnVehicle()))
+						JOptionPane.showMessageDialog(null, "This vehicle in test drive now!");
+					else{
+						if(specificTypeExistsInDrive(returnVehicle().getType()))
+							JOptionPane.showMessageDialog(null, "Team member of this vehicle type on a test drive right now!");
+						else{
+							testDriveFrame tdFrame = new testDriveFrame(300,150,"Test Drive to "+selectedField.getText(),returnVehicle());
+							new Thread(tdFrame).start();
+						}
+					}
 				}
 				else
 					JOptionPane.showMessageDialog(null, "You need choose one of vehicles!");
@@ -203,9 +216,9 @@ public class Contents {
 		viewCars.setVisible(false);
 		viewCars.setVisible(true);
 	}
-	public static void addKM(String name,int km){
+	public static void addKM(Vehicle vehicle,int km){
 		for(int i=0;i<vehicles.size();i++)
-			if(vehicles.get(i).getName().equals(name)){
+			if(vehicles.get(i).getName().equals(vehicle.getName())){
 				vehicles.get(i).addKM(km);
 				images.get(i).setToolTipText(vehicles.get(i).toString());
 			}
@@ -217,4 +230,30 @@ public class Contents {
 	}
 	public static List<Vehicle> getVehicles(){return vehicles;}
 	public static List<JToggleButton> getImages(){return images;}
+	public static boolean exists(String name){
+		for(int i=0;i<vehicles.size();i++)
+			if(vehicles.get(i).getModel().equals(name))
+				return true;
+		return false;
+	}
+	public boolean existsInDrive(Vehicle vehicle){
+		List<Vehicle> vehiclesInDrive = testDriveFrame.getListVehiclesInDrive();
+		for(int i=0;i<vehiclesInDrive.size();i++)
+			if(vehiclesInDrive.get(i).getName().equals(vehicle.getName()))
+				return true;
+		return false;
+	}
+	public boolean specificTypeExistsInDrive(String type){
+		List<Vehicle> vehiclesInDrive = testDriveFrame.getListVehiclesInDrive();
+		for(int i=0;i<vehiclesInDrive.size();i++)
+			if(vehiclesInDrive.get(i).getType().equals(type))
+				return true;
+		return false;
+	}
+	public Vehicle returnVehicle(){
+		for(int i=0;i<vehicles.size();i++)
+			if(vehicles.get(i).getName().equals(selectedField.getText()))
+				return vehicles.get(i);
+		return null;
+	}
 }

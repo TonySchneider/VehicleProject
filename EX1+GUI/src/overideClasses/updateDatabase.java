@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ public class updateDatabase extends simpleFrame {
 	@Override
 	public void run() {
 		try{
+			generalFrame.unEnable();
 			for(int i=0;i<5;i++){
 				value = value + 100/5;
 				vprog.setText("Complete - "+String.valueOf(value)+"%");
@@ -49,6 +51,14 @@ public class updateDatabase extends simpleFrame {
 		}
 	}
 	public void reduce(){
-		
+		generalFrame.Enable();
 	}
+    @Override
+    protected void processWindowEvent(WindowEvent e) {
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+        	JOptionPane.showMessageDialog(null, "This window can not be exited during Update.");
+        } else {        
+            super.processWindowEvent(e); 
+        }
+    }
 }

@@ -25,4 +25,7 @@ public class SeaVehicle extends Vehicle {
 		if(super.equals(other) && this.direction_wind == other.direction_wind && this.country_flag == other.country_flag) return true;
 		return false;
 	}
+	public String getType(){
+		return "Sea";
+	}
 }

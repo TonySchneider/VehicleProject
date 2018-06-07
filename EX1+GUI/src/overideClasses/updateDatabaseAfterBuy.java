@@ -6,6 +6,7 @@ public class updateDatabaseAfterBuy extends updateDatabase {
 		this.selected = selected;
 	}
 	public void reduce(){
+		super.reduce();
 		Contents.removeImage(selected);
 	}
 }
