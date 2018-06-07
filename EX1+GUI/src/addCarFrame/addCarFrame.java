@@ -29,7 +29,9 @@ import Vehicles.Bicycle;
 import Vehicles.Cruise;
 import Vehicles.DownGame;
 import Vehicles.DownSpyware;
+import Vehicles.ElectricBicycle;
 import Vehicles.Frigate;
+import Vehicles.HybridAircraft;
 import Vehicles.Jeep;
 import Vehicles.Vehicle;
 import generalFrame.generalFrame;
@@ -261,14 +263,14 @@ public class addCarFrame extends simpleFrame {
 				labels[3].setRed();//maxspeed
 				labels[4].setRed();//flag
 				labels[5].setRed();//fualaverage
-				labels[6].setRed();;//engineaverage
+				labels[6].setRed();//engineaverage
 				labels[7].setText("Irrelevant");//מקור הכוח
-				comos[0].setLock(0);//wheels
-				comos[1].setLock(0);//type of road
-				comos[2].setLock(0);//שימוש בכלי
-				comos[3].setLock(1);//כיוון השייט
+				comos[0].setRed();//wheels
+				comos[1].setLock(1);//type of road
+				comos[2].setLock(1);//שימוש בכלדי
+				comos[3].setRed();//כיוון השייט
 				comos[4].setLock(0);//ניקוד �?נרגטי
-				comos[5].setLock(3);//סוג הרישיון
+				comos[5].setLock(0);//סוג הרישיון
 			}
 		});
         options[8].addActionListener(new ActionListener() {
@@ -333,6 +335,15 @@ public class addCarFrame extends simpleFrame {
 						break;
 					case "Cruise":
 						vehicle = new Cruise(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						break;
+					case "HybridAircraft":
+						if(comos[3].getComboText().equals("With"))
+							vehicle = new HybridAircraft(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),true,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						else
+							vehicle = new HybridAircraft(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),Integer.parseInt(comos[0].getComboText()),false,labels[4].getFieldText(),Double.parseDouble(labels[5].getFieldText()),Integer.parseInt(labels[6].getFieldText()));
+						break;
+					case "ElectricBicycle":
+						vehicle = new ElectricBicycle(labels[0].getFieldText(),Integer.parseInt(labels[2].getFieldText()),Integer.parseInt(labels[3].getFieldText()),comos[1].getComboText(),Integer.parseInt(labels[6].getFieldText()));
 						break;
 					default:
 						break;
